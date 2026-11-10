@@ -1,0 +1,99 @@
+/* ---- LexYacc Studio UI ---- */
+:root{
+  --bg:#1e1e2e; --bg2:#181825; --bg3:#11111b; --panel:#252537; --line:#313244;
+  --fg:#cdd6f4; --fg-dim:#9399b2; --accent:#89b4fa; --accent2:#a6e3a1;
+  --run:#313244; --run-h:#45475a; --prim:#89b4fa; --prim-h:#a6c8ff;
+  --ok:#a6e3a1; --fail:#f38ba8; --warn:#f9e2af; --kw:#cba6f7;
+}
+body.theme-light{
+  --bg:#ffffff; --bg2:#f3f4f8; --bg3:#e8eaf1; --panel:#f7f8fc; --line:#d7dbe6;
+  --fg:#1f2430; --fg-dim:#5c6479; --accent:#1e66f5; --accent2:#2e7d32;
+  --run:#e7eaf3; --run-h:#d7dcec; --prim:#1e66f5; --prim-h:#data; --prim-h:#2f74ff;
+  --ok:#2e7d32; --fail:#d33b56; --warn:#b4881b; --kw:#8839ef;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;font:13px/1.5 "Segoe UI",system-ui,sans-serif;
+  color:var(--fg);background:var(--bg);overflow:hidden;user-select:none}
+
+/* title bar */
+#titlebar{display:flex;align-items:center;gap:14px;height:46px;padding:0 14px;
+  background:var(--bg2);border-bottom:1px solid var(--line)}
+.brand{font-weight:600;font-size:15px;letter-spacing:.2px}
+.brand .logo{color:var(--accent);font-weight:800;margin-right:4px}
+.brand .sub{color:var(--fg-dim);font-weight:400;font-size:11px;margin-left:8px;
+  border-left:1px solid var(--line);padding-left:10px}
+.spacer{flex:1}
+.run-group{display:flex;gap:8px;margin-left:8px}
+button{font-family:inherit;color:var(--fg);border:1px solid var(--line);
+  background:var(--run);border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12.5px}
+button:hover{background:var(--run-h)}
+button.run b{color:var(--accent2);margin-right:4px;font-size:11px}
+button.run.primary{background:var(--prim);color:#0b1020;border-color:var(--prim);font-weight:600}
+button.run.primary b{color:#0b1020}
+button.run.primary:hover{background:var(--prim-h)}
+button.ghost{background:transparent}
+button:disabled{opacity:.5;cursor:progress}
+
+/* body: sidebar + editor */
+#body{flex:1;display:flex;min-height:0}
+#sidebar{width:230px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--line);
+  overflow-y:auto;padding-bottom:10px}
+.side-head{font-size:10.5px;letter-spacing:.9px;color:var(--fg-dim);font-weight:700;
+  padding:12px 14px 6px}
+.ex-list,.file-list{list-style:none;margin:0;padding:0}
+.ex-list li{padding:8px 14px;cursor:pointer;border-left:2px solid transparent}
+.ex-list li:hover{background:var(--bg3)}
+.ex-list li.active{background:var(--bg3);border-left-color:var(--accent)}
+.ex-list li .t{font-weight:600}
+.ex-list li .b{color:var(--fg-dim);font-size:11px;margin-top:1px}
+.ex-list li .m{float:right;font-size:9.5px;color:var(--accent2);border:1px solid var(--line);
+  border-radius:4px;padding:1px 5px;text-transform:uppercase}
+.file-list li{padding:5px 14px;cursor:pointer;display:flex;align-items:center;gap:7px;color:var(--fg-dim)}
+.file-list li:hover{background:var(--bg3);color:var(--fg)}
+.file-list li.active{color:var(--fg)}
+.file-list li .dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dot.l{background:#f38ba8}.dot.y{background:#89b4fa}.dot.c{background:#a6e3a1}
+.dot.h{background:#f9e2af}.dot.txt{background:#9399b2}
+.side-note{color:var(--fg-dim);font-size:11px;padding:10px 14px;line-height:1.5}
+
+/* editor */
+#editor-col{flex:1;display:flex;flex-direction:column;min-width:0}
+.tabbar{display:flex;height:34px;background:var(--bg2);border-bottom:1px solid var(--line);overflow-x:auto}
+.tabbar .tab{display:flex;align-items:center;gap:7px;padding:0 14px;cursor:pointer;
+  border-right:1px solid var(--line);color:var(--fg-dim);white-space:nowrap;font-size:12.5px}
+.tabbar .tab.active{background:var(--bg);color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
+#editor{flex:1;min-height:0}
+
+/* dock */
+#dock{height:255px;flex-shrink:0;background:var(--bg2);border-top:1px solid var(--line);
+  display:flex;flex-direction:column}
+.dock-tabs{display:flex;align-items:center;height:32px;border-bottom:1px solid var(--line);padding-left:4px}
+.dtab{background:transparent;border:none;border-radius:0;color:var(--fg-dim);padding:0 14px;height:100%;font-size:12px}
+.dtab:hover{background:transparent;color:var(--fg)}
+.dtab.active{color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
+.dock-status{margin-left:auto;padding-right:14px;font-size:12px;font-weight:600}
+.dock-body{flex:1;min-height:0;position:relative}
+.pane{display:none;position:absolute;inset:0;overflow:auto;margin:0;padding:12px 16px;
+  font:12.5px/1.55 "Cascadia Code",Consolas,"Courier New",monospace;white-space:pre-wrap;
+  color:var(--fg);user-select:text}
+.pane.active{display:block}
+.graph-pane{padding:0;background:var(--bg3)}
+.graph-pane svg{display:block;margin:auto}
+.graph-hint{color:var(--fg-dim);padding:20px;font-family:"Segoe UI",sans-serif}
+.graph-toolbar{position:absolute;top:8px;right:12px;z-index:5;display:flex;gap:6px}
+.graph-toolbar button{padding:3px 9px;font-size:11px}
+
+/* build log */
+.stage{display:flex;gap:9px;padding:4px 2px;align-items:flex-start}
+.stage .ic{width:16px;flex-shrink:0;font-weight:700}
+.stage.ok .ic{color:var(--ok)} .stage.fail .ic{color:var(--fail)}
+.stage .nm{min-width:220px;flex-shrink:0}
+.stage .lg{color:var(--fail);white-space:pre-wrap}
+.stage.ok .lg{color:var(--warn)}
+
+/* status bar */
+#statusbar{display:flex;align-items:center;gap:12px;height:24px;background:var(--accent);
+  color:#0b1020;font-size:11.5px;padding:0 12px;font-weight:500}
+body.theme-light #statusbar{color:#fff}
+#statusbar .spacer{flex:1}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; worker-src 'self' blob:;">
+<title>LexYacc Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <!-- title bar -->
+  <header id="titlebar">
+    <div class="brand"><span class="logo">&lt;/&gt;</span> LexYacc&nbsp;Studio
+      <span class="sub">Compiler&nbsp;Design&nbsp;IDE</span></div>
+    <div class="run-group">
+      <button class="run" id="runLex"  title="Generate &amp; run the scanner only (Ctrl+1)"><b>▸</b> Run Lex</button>
+      <button class="run" id="runYacc" title="Generate &amp; run the parser only (Ctrl+2)"><b>▸</b> Run Yacc</button>
+      <button class="run primary" id="runBoth" title="Run Lex + Yacc together (Ctrl+Enter)"><b>▸▸</b> Run Both</button>
+    </div>
+    <div class="spacer"></div>
+    <button class="ghost" id="saveOut" title="Save output to a file">Save output</button>
+    <button class="ghost" id="themeBtn" title="Toggle light / dark">◑ Theme</button>
+  </header>
+
+  <div id="body">
+    <!-- sidebar -->
+    <aside id="sidebar">
+      <div class="side-head">EXAMPLES</div>
+      <ul id="examples" class="ex-list"></ul>
+      <div class="side-head">PROJECT FILES</div>
+      <ul id="files" class="file-list"></ul>
+      <div class="side-note" id="modeHint"></div>
+    </aside>
+
+    <!-- editor -->
+    <main id="editor-col">
+      <div id="tabbar" class="tabbar"></div>
+      <div id="editor"></div>
+    </main>
+  </div>
+
+  <!-- output dock -->
+  <section id="dock">
+    <div class="dock-tabs">
+      <button class="dtab active" data-tab="output">Program Output</button>
+      <button class="dtab" data-tab="build">Build Log</button>
+      <button class="dtab" data-tab="graph">LALR State Graph</button>
+      <div class="dock-status" id="runStatus"></div>
+    </div>
+    <div class="dock-body">
+      <pre id="tab-output" class="pane active"></pre>
+      <div id="tab-build" class="pane"></div>
+      <div id="tab-graph" class="pane graph-pane"><div class="graph-hint">Run a project that has a <b>.y</b> grammar to see its LALR(1) state machine.</div></div>
+    </div>
+  </section>
+
+  <!-- status bar -->
+  <footer id="statusbar">
+    <span id="toolInfo">checking toolchain…</span>
+    <span class="spacer"></span>
+    <span id="platInfo"></span>
+  </footer>
+
+  <!-- viz must load before Monaco's AMD loader, or its UMD registers as an
+       anonymous AMD module instead of defining the global Viz -->
+  <script src="../vendor/viz-standalone.js"></script>
+  <script src="../vendor/monaco/vs/loader.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

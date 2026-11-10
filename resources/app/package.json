@@ -1,0 +1,9 @@
+{
+  "name": "lexyacc-studio",
+  "productName": "LexYacc Studio",
+  "version": "1.0.0",
+  "description": "A VS Code-style IDE that runs Lex and Yacc programs with real flex, bison and a C compiler.",
+  "author": "Sanjeev Srivathsan P",
+  "license": "MIT",
+  "main": "main.js"
+}

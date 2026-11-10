@@ -1,0 +1,10 @@
+// MiniCC demo: arithmetic with optimization opportunities
+int a, b, c, d;
+a = 10;
+b = 4 * 8 + 2;            /* constant folding    */
+c = a * 8;                /* strength reduction  */
+d = (a + 0) * 1 + b / 1;  /* algebraic identities */
+print(a);
+print(b);
+print(c);
+print(d);
